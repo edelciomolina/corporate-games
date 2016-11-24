@@ -1,0 +1,198 @@
+﻿body {
+    background-image: url('/img/back.png');
+    background-repeat: repeat-y;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.hidden {
+    display: none;
+}
+
+.img-waitkey {
+    position: absolute;
+    width: 8vw;
+    right: 1.5vw;
+    bottom: 1.5vw;
+    display: none;
+}
+.img-logo{
+    display: none;
+    opacity: .6;
+    position: absolute;
+    width: 10%;
+    right: 1%;
+    bottom: 3%;
+}
+
+.img-title {
+    background: url(img/abertura.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 70vh;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    bottom: 0px;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+.img-circle {
+    position: fixed;
+    top: 0px;
+    right: 0px;
+}
+
+.span-counter {
+    font-size: 149px;
+    font-family: Arial;
+    font-weight: bold;
+    color: #296C9C;
+    position: fixed;
+    top: 15px;
+    right: 36px;
+    width: 171px;
+    text-align: center;
+}
+
+.span-counter-big {
+    font-size: 525px;
+    font-family: Arial;
+    font-weight: bold;
+    margin-top: 80px;
+    width: auto;
+    margin-left: 40%;
+    color: #FFF;
+    position: absolute;
+}
+
+.span-theme-big {
+    font-size: 115px;
+    font-family: Arial;
+    font-weight: bold;
+    margin-top: 260px;
+    width: 100%;
+    color: #FFF;
+    position: absolute;
+    text-align: center;
+}
+
+.span-theme-title {
+    font-size: 55px;
+    font-family: Arial;
+    font-weight: normal;
+    margin-top: 60px;
+    left: 80px;
+    color: #85F1ED;
+    position: absolute;
+}
+
+.span-text-title {
+    font-size: 55px;
+    font-family: Arial;
+    font-weight: bold;
+    margin-top: 130px;
+    margin-right: 250px;
+    left: 80px;
+    color: #FFF;
+    position: absolute;
+}
+
+.span-resp-title {
+    font-size: 55px;
+    font-family: Arial;
+    font-weight: bold;
+    margin-top: 75px;
+    left: 10vw;
+    color: #FFF;
+    position: absolute;
+    margin-right: 300px;
+}
+
+.span-resp-title2 {
+    font-size: 75px;
+    font-family: Arial;
+    font-weight: bold;
+    margin-top: 146px;
+    left: 10vw;
+    color: #000;
+    position: absolute;
+    margin-right: 300px;
+    border: solid 8px rgba(255, 255, 255, 0.74);
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: rgba(255, 255, 255, 0.85);
+    padding-top: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    padding-bottom: 10px;
+    max-width: 570px;
+    text-align: center;
+}
+
+.span-resp-text {
+    font-size: 650px;
+    font-family: Arial;
+    font-weight: bold;
+    top: -30px;
+    right: 15vw;
+    color: #FFF;
+    position: fixed;
+}
+
+.span-ready {
+    font-size: 115px;
+    font-family: Arial;
+    font-weight: bold;
+    margin-top: 260px;
+    width: 100%;
+    color: #FFF;
+    position: absolute;
+    text-align: center;
+}
+
+.table-question {
+    padding-top: 45px;
+    font-size: 48px;
+    font-family: Arial;
+    color: #fff;
+}
+
+    .table-question tr:nth-child(1) td span:nth-child(1),
+    .table-question tr:nth-child(1) td span:nth-child(3),
+    .table-question tr:nth-child(2) td span:nth-child(1),
+    .table-question tr:nth-child(2) td span:nth-child(3) {
+        cursor: none;
+        font-size: 80px;
+        font-weight: bold;
+        padding-left: 23px;
+        padding-right: 23px;
+        padding-top: 3px;
+        padding-bottom: 10px;
+        background-color: #000;
+        -webkit-border-radius: 60px;
+        -moz-border-radius: 60px;
+        border-radius: 60px;
+    }
+
+
+
+    .table-question tr {
+        height: 160px;
+    }
+
+    .table-question td {
+        line-height: 50px;
+    }
+
+        .table-question td:nth-child(2) {
+            padding-right: 100px;
+            padding-left: 20px;
+        }
+
+        .table-question td:nth-child(4) {
+            padding-left: 20px;
+        }

@@ -1,5 +1,5 @@
 ﻿
-Game = {
+Quiz = {
 
     Sound_Music: new Audio("/media/intro.wav"),
     Sound_Counter: new Audio("/media/intesity.wav"),
@@ -7,12 +7,9 @@ Game = {
     Sound_Ready: new Audio("/media/ready.wav"),
     Sound_Drum: new Audio("/media/drum.wav"),
     Animation: null,
-    AnimationWaitKey: null,
-    QuestionNumber: 0,
+    AnimationWaitKey: null, 
     WaitOk: false,
-    Slide: -1,
-    Timeout: 0,
-    Paused: false,
+    Slide: -1, 
     QuestionAtual: 1,
     QuestionCateg: 0,
     Questions: null,
@@ -21,20 +18,20 @@ Game = {
 
         $.getJSON("/data/quiz/questions.json", function (data) {
 
-            Game.Questions = data;
+            Quiz.Questions = data;
 
-            document.title = "Game On";
-            Game.ChangeQuestion();
+            document.title = "Quiz On";
+            Quiz.ChangeQuestion();
 
 
             //preparando evento para controle dos slides
             var listener = new window.keypress.Listener();
             listener.simple_combo("enter", function (a, c) {
 
-                if (Game.WaitOk) {
+                if (Quiz.WaitOk) {
 
-                    Game.WaitOk = false;
-                    Game.NextStage();
+                    Quiz.WaitOk = false;
+                    Quiz.NextStage();
 
                 }
 
@@ -46,48 +43,53 @@ Game = {
             //efeito de atenção para waitkey  
             setInterval(function () {
 
-                clearInterval(Game.AnimationWaitKey);
+                if (Quiz.WaitOk) {
 
-                if (Game.WaitOk) {
-
-                    $('.img-waitkey').fadeIn();
-
-                    Game.AnimationWaitKey = setInterval(function () {
-                        if (new Date().getTime() % 2 == 1) {
-                            $('.img-waitkey:visible').animateCSS('tada');
-                        } else {
-                            $('.img-waitkey:visible').animateCSS('shake');
-                        }
-                    }, 5000);
+                    Quiz.CheckWaitKey();
+                    $('.img-waitkey:not(:visible)').fadeIn();
 
                 } else {
 
-                    $('.img-waitkey').fadeOut();
+                    clearInterval(Quiz.AnimationWaitKey);
+                    Quiz.AnimationWaitKey = null;
+                    $('.img-waitkey:visible').fadeOut();
 
                 }
 
             }, 100);
 
-            Game.NextStage();
+            Quiz.NextStage();
 
         });
+         
+    },
 
+    CheckWaitKey: function () {
 
+        if (Quiz.AnimationWaitKey == null || typeof Quiz.AnimationWaitKey == 'undefined') {
+            Quiz.AnimationWaitKey = setInterval(function () {
+                if (new Date().getTime() % 2 == 1) {
+                    $('.img-waitkey:visible').animateCSS('tada');
+                } else {
+                    $('.img-waitkey:visible').animateCSS('shake');
+                }
+            }, 8000);
+        }
     },
 
     NextStage: function (a, c) {
 
-        Game.Slide += 1;
-        Game.Change(a, c);
+        Quiz.Slide += 1;
+        Quiz.Change(a, c);
 
     },
 
     Clean: function () {
 
-        Game.Sound_Music.pause();
-        Game.Sound_Counter.pause();
-        Game.Sound_Bells.pause();
-        Game.Sound_Ready.pause();
+        Quiz.Sound_Music.pause();
+        Quiz.Sound_Counter.pause();
+        Quiz.Sound_Bells.pause();
+        Quiz.Sound_Ready.pause();
 
         var elems = $('.hidden:visible');
         elems.animateCSS('fadeOut', function () {
@@ -102,16 +104,16 @@ Game = {
 
         try {
 
-            if (Game.QuestionAtual % 6 == 0) {
+            if (Quiz.QuestionAtual % 6 == 0) {
 
-                Game.QuestionAtual = 1;
-                Game.QuestionCateg += 1;
+                Quiz.QuestionAtual = 1;
+                Quiz.QuestionCateg += 1;
 
             }
 
-            var Group = Game.Questions.themes[Game.QuestionCateg];
-            var Question = Game.Questions.themes[Game.QuestionCateg].questions[(Game.QuestionAtual - 1)];
-            var Resposta = Game.Questions.themes[Game.QuestionCateg].questions[(Game.QuestionAtual - 1)].result;
+            var Group = Quiz.Questions.themes[Quiz.QuestionCateg];
+            var Question = Quiz.Questions.themes[Quiz.QuestionCateg].questions[(Quiz.QuestionAtual - 1)];
+            var Resposta = Quiz.Questions.themes[Quiz.QuestionCateg].questions[(Quiz.QuestionAtual - 1)].result;
             var RespostaL = (Resposta == 1 ? 'A' : Resposta == 2 ? 'B' : Resposta == 3 ? 'C' : 'D');
             var RespostaM = Question.answers[Resposta];
 
@@ -127,14 +129,14 @@ Game = {
             $('.span-resp-title').text("");
             $('.span-resp-title2').text(RespostaM);
 
-            Game.QuestionAtual += 1;
+            Quiz.QuestionAtual += 1;
 
         } catch (e) {
 
-            Game.Slide = 0;
-            Game.QuestionCateg = 1;
-            Game.QuestionAtual = 1;
-            Game.Change();
+            Quiz.Slide = 0;
+            Quiz.QuestionCateg = 1;
+            Quiz.QuestionAtual = 1;
+            Quiz.Change();
 
         }
 
@@ -159,24 +161,27 @@ Game = {
 
     ShowTimerStart: function (callback) {
 
-        Game.Sound_Ready.play();
+        Quiz.Sound_Ready.play();
 
-        $('.span-counter-big').animateCustomCSS('rotateIn', { duration: 600 });
+        var timeOut = 600;
+
         $('.span-counter-big').text(3);
+        $('.span-counter-big').animateCustomCSS('rotateIn', { duration: timeOut });
+
         setTimeout(function () {
 
             $('.span-counter-big').text(2);
 
             setTimeout(function () {
 
-                if (!Game.Cancel) {
+                if (!Quiz.Cancel) {
 
                     $('.span-counter-big').text(1);
 
                     setTimeout(function () {
 
                         $('.span-counter-big').animateCustomCSS('rotateOut', {
-                            duration: 600, onComplete: function () {
+                            onComplete: function () {
 
                                 $('.span-counter-big').hide();
 
@@ -185,13 +190,13 @@ Game = {
                             }
                         });
 
-                    }, 600);
+                    }, timeOut);
 
                 }
 
-            }, 600);
+            }, timeOut);
 
-        }, 600);
+        }, timeOut);
 
     },
 
@@ -223,16 +228,16 @@ Game = {
         setTimeout(function () {
 
 
-            if (!Game.Cancel) {
+            if (!Quiz.Cancel) {
 
                 var counter = function () {
 
                     setTimeout(function () {
 
-                        if (!Game.Cancel) {
+                        if (!Quiz.Cancel) {
 
                             $('.span-counter').text($('.span-counter').text() - 1);
-                            Game.Sound_Counter.play();
+                            Quiz.Sound_Counter.play();
 
                             if ($('.span-counter').text() <= 0) {
 
@@ -243,7 +248,7 @@ Game = {
                                 $('.img-circle').animateCSS('slideOutRight', function () { $('.img-circle').hide(); });
                                 $('.span-counter').animateCSS('slideOutRight', function () { $('.span-counter').hide(); });
 
-                                Game.Sound_Drum.play();
+                                Quiz.Sound_Drum.play();
 
                                 $('.span-ready').animateCSS('zoomIn');
                                 callback();
@@ -269,13 +274,13 @@ Game = {
 
     ShowAnswers: function (callback) {
 
-        if (!Game.Cancel) {
+        if (!Quiz.Cancel) {
 
             $('.span-ready').animateCSS('zoomOut', function () {
 
                 $('.span-ready').hide();
 
-                Game.Sound_Bells.play();
+                Quiz.Sound_Bells.play();
 
                 $('.span-resp-title, .span-resp-title2').animateCSS('fadeInLeftBig');
                 $('.span-resp-text').animateCSS('fadeInDownBig', function () {
@@ -294,33 +299,33 @@ Game = {
     },
 
     Change: function () {
-         
+
         setTimeout(function () {
 
-            Game.Cancel = false;
+            Quiz.Cancel = false;
 
             //eliminando musica de fundo se houver
             try {
-                Game.Sound_Music.pause();
+                Quiz.Sound_Music.pause();
             } catch (e) { }
 
             //elimitando timer de animação e ocultando elementos visiveis
-            clearInterval(Game.Animation);
+            clearInterval(Quiz.Animation);
 
 
             //identificando proxima tela
-            switch (Game.Slide) {
+            switch (Quiz.Slide) {
 
                 case 0: //abertura
 
                     var elems = $('.screen .item');
                     elems.hide();
 
-                    Game.Sound_Music.loop = true;
-                    Game.Sound_Music.play();
+                    Quiz.Sound_Music.loop = true;
+                    Quiz.Sound_Music.play();
 
                     $('.img-title').animateCSS('bounceIn', 1000);
-                    Game.Animation = setInterval(function () {
+                    Quiz.Animation = setInterval(function () {
 
                         if (new Date().getTime() % 2 == 1) {
                             $('.img-title').animateCSS('rubberBand');
@@ -330,7 +335,7 @@ Game = {
 
                     }, 5000);
 
-                    Game.WaitOk = true;
+                    Quiz.WaitOk = true;
 
                     break;
 
@@ -339,15 +344,15 @@ Game = {
                     var elems = $('.screen .item');
                     elems.hide();
 
-                    if (Game.QuestionAtual == 2) {
+                    if (Quiz.QuestionAtual == 2) {
 
-                        Game.ShowCategoria(function () {
+                        Quiz.ShowCategoria(function () {
 
-                            Game.ShowTimerStart(function () {
+                            Quiz.ShowTimerStart(function () {
 
-                                Game.ShowQuestion(function () {
+                                Quiz.ShowQuestion(function () {
 
-                                    Game.NextStage();
+                                    Quiz.NextStage();
 
                                 });
 
@@ -358,11 +363,11 @@ Game = {
 
                     } else {
 
-                        Game.ShowTimerStart(function () {
+                        Quiz.ShowTimerStart(function () {
 
-                            Game.ShowQuestion(function () {
+                            Quiz.ShowQuestion(function () {
 
-                                Game.NextStage();
+                                Quiz.NextStage();
 
                             });
 
@@ -374,9 +379,9 @@ Game = {
 
                 case 2: //mostrando as escolhas
 
-                    Game.ShowChoices(function () {
+                    Quiz.ShowChoices(function () {
 
-                        Game.WaitOk = true;
+                        Quiz.WaitOk = true;
 
                     });
 
@@ -384,9 +389,9 @@ Game = {
 
                 case 3: //mostrando a resposta
 
-                    Game.ShowAnswers(function () {
+                    Quiz.ShowAnswers(function () {
 
-                        Game.WaitOk = true;
+                        Quiz.WaitOk = true;
 
                     });
 
@@ -401,10 +406,10 @@ Game = {
 
                         $(e).hide();
 
-                        Game.Cancel = true;
-                        Game.Slide = 1;
-                        Game.ChangeQuestion();
-                        Game.Change();
+                        Quiz.Cancel = true;
+                        Quiz.Slide = 1;
+                        Quiz.ChangeQuestion();
+                        Quiz.Change();
 
                     });
 
@@ -422,6 +427,5 @@ Game = {
 
 
 }
-
-
-$(document).ready(Game.Ready);
+ 
+$(document).ready(Quiz.Ready);

@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+</head>
+<body>
+
+    <script>
+          
+
+
+        if (typeof process == "object") {
+            process.on('uncaughtException', function (err) {
+                console.error('Uncaught Error', err.message);
+            });
+
+        }
+
+        window.gui = require('nw.gui');
+        window.win = gui.Window.get();
+        win.showDevTools();
+         
+
+        //creating the serial object
+        var SerialPort = require('serial-node');
+        var serial = new SerialPort();
+
+        //setting use with config arguments and callback functions
+        serial.use('COM3', {
+            baud: '2400',
+            callbackUse: function (args) {
+
+                if (args.state) {
+
+                    //reading serial in looping
+                    serial.read(true);
+
+
+                    //wait for 5 seconds to stop reading
+                    setTimeout(function () {
+
+                        //serial.stop();
+
+                    }, 5000);
+                     
+                }
+
+            },
+            callbackRead: function (args) {
+                 
+                //my rules to accept data when the serial data was like: @6:0!
+                var read = args.value.trim() || '';
+                if (read.startsWith('@') && read.endsWith('!') && read.length == 5) {
+
+                    //show the useful data
+                    console.log(read);
+
+                }
+
+            } 
+
+        });
+
+    </script>
+
+</body>
+</html>

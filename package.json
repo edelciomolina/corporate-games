@@ -1,0 +1,23 @@
+{
+  "name": "corporate_games",
+  "description": "Corporate Games",
+  "version": "1.00",
+  "main": "index.html",
+  "js-flags": "--expose-gc",
+  "single-instance": true,
+  "author": {
+    "name": "Edelcio Molina",
+    "email": "edelciomolina@gmail.com"
+  },
+  "window": {
+    "toolbar": false,
+    "frame": true,
+    "resizable": true,
+    "show_in_taskbar": true,
+    "show": true
+  },
+  "webkit": {
+    "plugin": true,
+    "page-cache": false
+  } 
+}

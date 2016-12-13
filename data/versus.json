@@ -1,0 +1,18 @@
+﻿{
+  "player1": {
+    "name": "Edelcio Molina",
+    "team": "Desenvolvimento",
+    "photo": "/data/files/1477395639_04.jpg",
+    "serialkey": "@6:0!"
+  },
+  "player2": {
+    "name": "Marcus Paulo",
+    "team": "Desenvolvimento",
+    "photo": "/data/files/574662_3450869197787_701396745_n.jpg",
+    "serialkey": "@4:0!"
+  },
+  "serial": {
+    "port": "COM3",
+    "baud": "2400"
+  }
+}

@@ -2,42 +2,75 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Maven+Pro" rel="stylesheet" type="text/css">
     <link href="/games/versus/index.css" rel="stylesheet" />
     <link href="/assets/css/animate.min.css" rel="stylesheet" />
 
 </head>
 <body>
-    <div class="screen">
-        <img class="img-waitkey hidden" src="/img/enter.png" />
-        <div class="item img-title hidden">VERSUS</div>
-        <img class="item img-circle hidden " src="/img/circle.png" />
-        <span class="item span-counter hidden "></span>
-        <span class="item span-counter-big hidden"></span>
-        <span class="item span-theme-big hidden"></span>
-        <span class="item span-theme-title hidden"></span>
-        <span class="item span-ready hidden">Prontos?</span>
-        <span class="item span-text-title hidden">
-            <span class="span-text-titleT"></span>
-            <br />
-            <table class="item  table-question hidden">
-                <tr>
-                    <td class="question-a1"><span>A</span></td>
-                    <td class="question-a2"></td>
-                    <td class="question-c1"><span>B</span></td>
-                    <td class="question-c2"></td>
-                </tr>
-                <tr>
-                    <td class="question-b1"><span>C</span></td>
-                    <td class="question-b2"></td>
-                    <td class="question-d1"><span>D</span></td>
-                    <td class="question-d2"></td>
-                </tr>
-            </table>
-        </span>
-        <span class="item span-resp-title hidden"></span>
-        <span class="item span-resp-title2 hidden"></span>
-        <span class="item span-resp-text hidden"></span>
-    </div>
+
+    <img class="img-waitkey" src="/assets/img/enter.png" />
+
+    <screen id="opening">
+
+        <element id="title">
+            VERSUS
+        </element>
+
+    </screen>
+
+    <screen id="intro">
+
+        <element id="player1">
+            <div class="block">
+                <div class="photo">
+                    <img src="#" />
+                </div>
+                <span class="name"></span>
+                <span class="team"></span>
+            </div>
+        </element>
+
+        <element id="versus">
+            <img src="/assets/img/versus.png" />
+        </element>
+
+        <element id="player2">
+            <div class="block">
+                <div class="photo">
+                    <img src="#" />
+                </div>
+                <span class="name"></span>
+                <span class="team"></span>
+            </div>
+        </element>
+
+    </screen>
+
+    <screen id="counter">
+
+        <element id="number">
+            <span class="span-counter-big"></span>
+        </element>
+
+    </screen>
+
+    <screen id="waitwinner">
+
+        <element id="text">
+            <span class="span-now">Agora!</span>
+        </element>
+
+    </screen>
+
+    <screen id="draw">
+
+        <element id="text">
+            <span class="span-draw">Empate!</span>
+        </element>
+
+    </screen>
+
     <script src="/assets/js/jquery.1.10.2.min.js"></script>
     <script src="/assets/js/animate.min.js"></script>
     <script src="/assets/js/keypress-2.0.2.min.js"></script>
@@ -49,4 +82,3 @@
 
 
 
- 

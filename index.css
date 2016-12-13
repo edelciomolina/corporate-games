@@ -1,5 +1,5 @@
 ﻿body {
-    background-image: url('/img/back.png');
+    background-image: url('/assets/img/back.png');
     background-repeat: repeat-y;
     background-size: cover;
     overflow: hidden;
@@ -8,7 +8,7 @@
 
 .img-title {
     margin-top: 15vh;
-   background: url(/img/logo.png); 
+   background: url(/assets/img/logo.png); 
     background-size: contain;
     background-repeat: no-repeat;
     height: 60vh;

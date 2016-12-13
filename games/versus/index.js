@@ -1,27 +1,19 @@
 ﻿
 Versus = {
 
-    Sound_Music: new Audio("/media/intro.wav"),
-    Sound_Counter: new Audio("/media/intesity.wav"),
-    Sound_Bells: new Audio("/media/bells.wav"),
-    Sound_Ready: new Audio("/media/ready.wav"),
-    Sound_Drum: new Audio("/media/drum.wav"),
+    Sound_Music: new Audio("/assets/media/intro.wav"),
+    Sound_Counter: new Audio("/assets/media/intesity.wav"),
+    Sound_Bells: new Audio("/assets/media/bells.wav"),
+    Sound_Ready: new Audio("/assets/media/ready.wav"),
+    Sound_Drum: new Audio("/assets/media/drum.wav"),
     Animation: null,
-    Slide: -1,
-    QuestionAtual: 1,
-    QuestionCateg: 0,
-    Questions: null,
+    Config: null,
 
     Ready: function () {
 
         Game.Initialize({
-            title: "Quiz",
-            configPath: "/data/Versus.json",
-            keys: [{
-                "key": "enter",
-                "img": "/img/enter.png",
-                "fcn": Versus.NextStage
-            }],
+            title: "Versus",
+            configPath: "/data/versus.json",
             Start: Versus.Start
         });
 
@@ -29,12 +21,90 @@ Versus = {
 
     Start: function (data) {
 
-        Versus.Questions = data.themes;
+        Versus.Config = data;
+        Versus.FrameOpening();
 
-        Versus.NextStage();
-        Versus.ChangeQuestion();
-        Game.WaitKey('enter');
     },
+
+    FrameOpening: function () {
+
+        //preparing the frame and a element to use
+        var screen = Game.Screen('opening').Prepare();
+        var titleElement = screen.Element('title');
+
+        //stating sound effects
+        //Versus.Sound_Music.loop = true;
+        //Versus.Sound_Music.play();
+
+        //animating elements
+        titleElement.animateCSS('bounceIn', 1000);
+        Versus.Animation = setInterval(function () {
+
+            if (new Date().getTime() % 2 == 1) {
+                titleElement.animateCSS('rubberBand');
+            } else {
+                titleElement.animateCSS('tada');
+            }
+
+        }, 5000);
+
+        //waiting for a key
+        Game.WaitKey('enter', function () {
+
+            titleElement.animateCSS('fadeOut', function () {
+
+                Versus.FrameIntro();
+
+            });
+
+        });
+
+    },
+
+    FrameIntro: function () {
+
+        //preparing the frame and a element to use
+        var screen = Game.Screen('intro').Prepare();
+        var player1 = screen.Element('player1');
+        var player2 = screen.Element('player2');
+        var versus = screen.Element('versus');
+
+
+        player1.find('.photo img').attr('src', Versus.Config.player1.photo);
+        player1.find('.name').text(Versus.Config.player1.name);
+        player1.find('.team').text(Versus.Config.player1.team);
+
+        player2.find('.photo img').attr('src', Versus.Config.player2.photo);
+        player2.find('.name').text(Versus.Config.player2.name);
+        player2.find('.team').text(Versus.Config.player2.team);
+
+        player1.animateCSS('bounceInLeft', 1000);
+        player2.animateCSS('bounceInRight', 1000);
+        versus.animateCSS('zoomInDown', 1500);
+
+        var introAnimation = setInterval(function () {
+
+            player1.animateCSS('bounce', Math.floor(Math.random() * 2000) + 500);
+            player2.animateCSS('bounce', Math.floor(Math.random() * 2000) + 500);
+            versus.animateCSS('jello', Math.floor(Math.random() * 4000) + 3000);
+             
+        }, 6000);
+
+    },
+
+    FrameCounter: function () {
+
+    },
+
+    FrameWaitWinner: function () {
+
+    },
+
+    FrameDraw: function () {
+
+    },
+
+
 
     NextStage: function (a, c) {
 
@@ -59,204 +129,6 @@ Versus = {
 
     },
 
-    ChangeQuestion: function () {
-
-        try {
-
-            if (Versus.QuestionAtual % 6 == 0) {
-
-                Versus.QuestionAtual = 1;
-                Versus.QuestionCateg += 1;
-
-            }
-
-            var Group = Versus.Questions[Versus.QuestionCateg];
-            var Question = Versus.Questions[Versus.QuestionCateg].questions[(Versus.QuestionAtual - 1)];
-            var Resposta = Versus.Questions[Versus.QuestionCateg].questions[(Versus.QuestionAtual - 1)].result;
-            var RespostaL = (Resposta == 1 ? 'A' : Resposta == 2 ? 'B' : Resposta == 3 ? 'C' : 'D');
-            var RespostaM = Question.answers[Resposta];
-
-            $('.span-theme-big').text(Group.name);
-            $('.span-theme-title').text(Group.name);
-            $('.span-text-titleT').text(Question.message);
-            $('.question-a2').text(Question.answers[0]);
-            $('.question-b2').text(Question.answers[1]);
-            $('.question-c2').text(Question.answers[2]);
-            $('.question-d2').text(Question.answers[3]);
-
-            $('.span-resp-text').text(RespostaL);
-            $('.span-resp-title').text("");
-            $('.span-resp-title2').text(RespostaM);
-
-            Versus.QuestionAtual += 1;
-
-        } catch (e) {
-
-            Versus.Slide = 0;
-            Versus.QuestionCateg = 1;
-            Versus.QuestionAtual = 1;
-            Versus.Change();
-
-        }
-
-    },
-
-    ShowCategoria: function (callback) {
-
-        $('.span-theme-big').animateCSS('fadeInDownBig', function () {
-
-            $('.span-theme-big').animateCSS('fadeOutUpBig', 3000, function () {
-
-                $('.span-theme-big').hide();
-
-                callback();
-
-            });
-
-        });
-
-
-    },
-
-    ShowTimerStart: function (callback) {
-
-        Versus.Sound_Ready.play();
-
-        var timeOut = 600;
-
-        $('.span-counter-big').text(3);
-        $('.span-counter-big').animateCustomCSS('rotateIn', { duration: timeOut });
-
-        setTimeout(function () {
-
-            $('.span-counter-big').text(2);
-
-            setTimeout(function () {
-
-                if (!Versus.Cancel) {
-
-                    $('.span-counter-big').text(1);
-
-                    setTimeout(function () {
-
-                        $('.span-counter-big').animateCustomCSS('rotateOut', {
-                            onComplete: function () {
-
-                                $('.span-counter-big').hide();
-
-                                callback();
-
-                            }
-                        });
-
-                    }, timeOut);
-
-                }
-
-            }, timeOut);
-
-        }, timeOut);
-
-    },
-
-    ShowQuestion: function (callback) {
-
-        $('.span-theme-title').animateCSS('bounceInLeft', function () {
-            $('.span-text-title').animateCSS('bounceInLeft', function () {
-
-                $('.span-theme-title').show();
-                $('.span-text-title').show();
-
-                callback();
-
-            });
-        });
-
-    },
-
-    ShowChoices: function (callback) {
-
-        $('.table-question').animateCSS('bounceInUp', function () {
-            $('.table-question').show();
-        });
-
-        $('.img-circle').animateCSS('slideInRight');
-        $('.span-counter').animateCSS('slideInRight');
-
-        $('.span-counter').text(10);
-        setTimeout(function () {
-
-
-            if (!Versus.Cancel) {
-
-                var counter = function () {
-
-                    setTimeout(function () {
-
-                        if (!Versus.Cancel) {
-
-                            $('.span-counter').text($('.span-counter').text() - 1);
-                            Versus.Sound_Counter.play();
-
-                            if ($('.span-counter').text() <= 0) {
-
-
-                                $('.span-theme-title').animateCSS('bounceOutLeft', function () { $('.span-theme-title').hide(); });
-                                $('.span-text-title').animateCSS('bounceOutLeft', function () { $('.span-text-title').hide(); });
-                                $('.table-question').animateCSS('bounceOutUp', function () { $('.table-question').hide(); });
-                                $('.img-circle').animateCSS('slideOutRight', function () { $('.img-circle').hide(); });
-                                $('.span-counter').animateCSS('slideOutRight', function () { $('.span-counter').hide(); });
-
-                                Versus.Sound_Drum.play();
-
-                                $('.span-ready').animateCSS('zoomIn');
-                                callback();
-
-                            } else {
-
-                                counter();
-
-                            }
-
-                        }
-
-                    }, 1000);
-
-                }
-                counter();
-
-            }
-        }, 1000);
-
-
-    },
-
-    ShowAnswers: function (callback) {
-
-        if (!Versus.Cancel) {
-
-            $('.span-ready').animateCSS('zoomOut', function () {
-
-                $('.span-ready').hide();
-
-                Versus.Sound_Bells.play();
-
-                $('.span-resp-title, .span-resp-title2').animateCSS('fadeInLeftBig');
-                $('.span-resp-text').animateCSS('fadeInDownBig', function () {
-
-                    callback();
-
-                });
-
-
-            });
-
-
-        }
-
-
-    },
-
     Change: function () {
 
         setTimeout(function () {
@@ -277,24 +149,7 @@ Versus = {
 
                 case 0: //abertura
 
-                    var elems = $('.screen .item');
-                    elems.hide();
 
-                    Versus.Sound_Music.loop = true;
-                    Versus.Sound_Music.play();
-
-                    $('.img-title').animateCSS('bounceIn', 1000);
-                    Versus.Animation = setInterval(function () {
-
-                        if (new Date().getTime() % 2 == 1) {
-                            $('.img-title').animateCSS('rubberBand');
-                        } else {
-                            $('.img-title').animateCSS('tada');
-                        }
-
-                    }, 5000);
-
-                    Game.WaitKey('enter');
 
                     break;
 

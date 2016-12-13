@@ -1,8 +1,8 @@
 ﻿Game = {
 
     Config: null,
-    AnimationWaitKey: null,
-    WaitKeys: [],
+    AnimationWaitKey: null, 
+    Config: null,
 
     Initialize: function (args) {
 
@@ -14,51 +14,9 @@
 
                 document.title = Game.Config.title;
 
-                //preparando evento para controle dos slides
-                var listener = new window.keypress.Listener();
-
-                for (var i = 0; i < Game.Config.keys.length; i++) {
-
-                    var key = Game.Config.keys[i];
-                    var img = key.img || '/img/enter.png';
-
-                    Game.WaitKeys[key.key] = false;
-
-                    listener.simple_combo(key.key, function (a, c) {
-                         
-                        if (Game.WaitKeys[key.key]) {
-
-                            Game.WaitKeys[key.key] = false;
-                            key.fcn()
-
-                        }
-
-                    });
-
-                }
-          
-
                 //removendo ponteiro do mouse
                 $('*').css({ 'cursor': 'none' });
-
-                //efeito de atenção para waitkey  
-                setInterval(function () {
-
-                    if (Game.WaitKeys['enter']) {
-
-                        Game.CheckWaitKey();
-                        $('.img-waitkey:not(:visible)').fadeIn();
-
-                    } else {
-
-                        clearInterval(Game.AnimationWaitKey);
-                        Game.AnimationWaitKey = null;
-                        $('.img-waitkey:visible').fadeOut();
-
-                    }
-
-                }, 100);
-
+                 
                 data.gameData = data;
                 if (Game.Config.Start) Game.Config.Start(data);
 
@@ -68,27 +26,43 @@
 
     },
 
-    WaitKey: function(key, state){
+    WaitKey: function (key, callback) {
 
-        debugger;
+        $('.img-waitkey:not(:visible)').fadeIn();
+        var listener = new window.keypress.Listener(); 
+        listener.simple_combo(key, function (a, c) {
 
-        var state = state || true;
+            $('.img-waitkey:visible').fadeOut();
+            if (callback) callback();
 
-        Game.WaitKeys[key] = state;
-
-    },
-
-    CheckWaitKey: function () {
-
-        if (Game.AnimationWaitKey == null || typeof Game.AnimationWaitKey == 'undefined') {
-            Game.AnimationWaitKey = setInterval(function () {
-                if (new Date().getTime() % 2 == 1) {
-                    $('.img-waitkey:visible').animateCSS('tada');
-                } else {
-                    $('.img-waitkey:visible').animateCSS('shake');
-                }
-            }, 8000);
-        }
+        });
+         
     },
      
+    Screen: function (screenName) {
+
+        var objectScreen = {
+
+            Prepare: function () {
+
+                $('screen').hide();
+                $('screen#' + screenName + ' element').hide();
+                $('screen#' + screenName + '').show();
+                $('body').show();
+                return objectScreen;
+
+            },
+
+            Element: function (elementName) {
+
+                return $('screen#' + screenName + ' element#' + elementName + '');
+
+            }
+
+        }
+
+        return objectScreen;
+
+    }
+
 }

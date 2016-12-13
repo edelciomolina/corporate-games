@@ -6,75 +6,34 @@ Quiz = {
     Sound_Bells: new Audio("/media/bells.wav"),
     Sound_Ready: new Audio("/media/ready.wav"),
     Sound_Drum: new Audio("/media/drum.wav"),
-    Animation: null,
-    AnimationWaitKey: null, 
-    WaitOk: false,
-    Slide: -1, 
+    Animation: null, 
+    Slide: -1,
     QuestionAtual: 1,
     QuestionCateg: 0,
     Questions: null,
 
     Ready: function () {
 
-        $.getJSON("/data/quiz/questions.json", function (data) {
-
-            Quiz.Questions = data;
-
-            document.title = "Quiz On";
-            Quiz.ChangeQuestion();
-
-
-            //preparando evento para controle dos slides
-            var listener = new window.keypress.Listener();
-            listener.simple_combo("enter", function (a, c) {
-
-                if (Quiz.WaitOk) {
-
-                    Quiz.WaitOk = false;
-                    Quiz.NextStage();
-
-                }
-
-            });
-
-            //removendo ponteiro do mouse
-            $('*').css({ 'cursor': 'none' });
-
-            //efeito de atenção para waitkey  
-            setInterval(function () {
-
-                if (Quiz.WaitOk) {
-
-                    Quiz.CheckWaitKey();
-                    $('.img-waitkey:not(:visible)').fadeIn();
-
-                } else {
-
-                    clearInterval(Quiz.AnimationWaitKey);
-                    Quiz.AnimationWaitKey = null;
-                    $('.img-waitkey:visible').fadeOut();
-
-                }
-
-            }, 100);
-
-            Quiz.NextStage();
-
+        Game.Initialize({
+            title: "Quiz",
+            configPath: "/data/quiz.json",
+            keys: [{
+                "key": "enter",
+                "img": "/img/enter.png",
+                "fcn": Quiz.NextStage
+            }],
+            Start: Quiz.Start
         });
-         
+
     },
 
-    CheckWaitKey: function () {
+    Start: function (data) {
 
-        if (Quiz.AnimationWaitKey == null || typeof Quiz.AnimationWaitKey == 'undefined') {
-            Quiz.AnimationWaitKey = setInterval(function () {
-                if (new Date().getTime() % 2 == 1) {
-                    $('.img-waitkey:visible').animateCSS('tada');
-                } else {
-                    $('.img-waitkey:visible').animateCSS('shake');
-                }
-            }, 8000);
-        }
+        Quiz.Questions = data.themes;
+
+        Quiz.NextStage();
+        Quiz.ChangeQuestion();
+        Game.WaitKey('enter');
     },
 
     NextStage: function (a, c) {
@@ -111,9 +70,9 @@ Quiz = {
 
             }
 
-            var Group = Quiz.Questions.themes[Quiz.QuestionCateg];
-            var Question = Quiz.Questions.themes[Quiz.QuestionCateg].questions[(Quiz.QuestionAtual - 1)];
-            var Resposta = Quiz.Questions.themes[Quiz.QuestionCateg].questions[(Quiz.QuestionAtual - 1)].result;
+            var Group = Quiz.Questions[Quiz.QuestionCateg];
+            var Question = Quiz.Questions[Quiz.QuestionCateg].questions[(Quiz.QuestionAtual - 1)];
+            var Resposta = Quiz.Questions[Quiz.QuestionCateg].questions[(Quiz.QuestionAtual - 1)].result;
             var RespostaL = (Resposta == 1 ? 'A' : Resposta == 2 ? 'B' : Resposta == 3 ? 'C' : 'D');
             var RespostaM = Question.answers[Resposta];
 
@@ -335,7 +294,7 @@ Quiz = {
 
                     }, 5000);
 
-                    Quiz.WaitOk = true;
+                    Game.WaitKey('enter'); 
 
                     break;
 
@@ -381,7 +340,7 @@ Quiz = {
 
                     Quiz.ShowChoices(function () {
 
-                        Quiz.WaitOk = true;
+                        Game.WaitKey('enter');
 
                     });
 
@@ -391,7 +350,7 @@ Quiz = {
 
                     Quiz.ShowAnswers(function () {
 
-                        Quiz.WaitOk = true;
+                        Game.WaitKey('enter');
 
                     });
 
@@ -427,5 +386,5 @@ Quiz = {
 
 
 }
- 
+
 $(document).ready(Quiz.Ready);

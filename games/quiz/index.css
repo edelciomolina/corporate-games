@@ -1,5 +1,5 @@
 ﻿body {
-    background-image: url('/img/back.png');
+    background-image: url('/assets/img/back.png');
     background-repeat: repeat-y;
     background-size: cover;
     overflow: hidden;
@@ -16,16 +16,7 @@
     bottom: 1.5vw;
     display: none;
 }
-
-.img-logo {
-    display: none;
-    opacity: .6;
-    position: absolute;
-    width: 10%;
-    right: 1%;
-    bottom: 3%;
-}
-
+ 
 .img-title {
     margin-left: auto;
     margin-top: 10vw;

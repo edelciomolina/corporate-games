@@ -1,11 +1,11 @@
 ﻿
 Quiz = {
 
-    Sound_Music: new Audio("/media/intro.wav"),
-    Sound_Counter: new Audio("/media/intesity.wav"),
-    Sound_Bells: new Audio("/media/bells.wav"),
-    Sound_Ready: new Audio("/media/ready.wav"),
-    Sound_Drum: new Audio("/media/drum.wav"),
+    Sound_Music: new Audio("/assets/media/intro.wav"),
+    Sound_Counter: new Audio("/assets/media/intesity.wav"),
+    Sound_Bells: new Audio("/assets/media/bells.wav"),
+    Sound_Ready: new Audio("/assets/media/ready.wav"),
+    Sound_Drum: new Audio("/assets/media/drum.wav"),
     Animation: null, 
     Slide: -1,
     QuestionAtual: 1,

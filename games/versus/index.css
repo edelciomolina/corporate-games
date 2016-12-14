@@ -4,6 +4,7 @@
     background-size: cover;
     overflow: hidden;
     display: none;
+    height: 100vh;
 }
 
 
@@ -41,7 +42,7 @@
     overflow: hidden;
     border-radius: 50%;
     border: solid 9px #fff;
-        margin-bottom: 2vw;
+    margin-bottom: 2vw;
 }
 
     #intro .photo img {
@@ -92,9 +93,7 @@
         margin-top: 22vh;
     }
 
-
-
-.span-counter-big {
+#counter .span-counter-big {
     font-size: 525px;
     font-family: Arial;
     font-weight: bold;
@@ -105,14 +104,113 @@
     position: absolute;
 }
 
-.span-now,
-.span-draw, {
-    font-size: 115px;
-    font-family: Arial;
-    font-weight: bold;
-    margin-top: 260px;
+#burn,
+#draw {
+      position: absolute;
     width: 100%;
-    color: #FFF;
-    position: absolute;
     text-align: center;
+}
+
+#waitwinner #text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    margin-top: 30vh;
+}
+
+#draw .span-draw,
+#burn .span-burn {
+    font-family: Maven Pro;
+    color: #fff;
+    font-size: 10vw;
+    font-weight: bold;
+}
+
+
+#draw img,
+#burn img {
+    width: 40vh;
+    margin-top: 8vw;
+}
+
+
+#waitwinner #text .span-now {
+    font-family: Maven Pro;
+    color: #fff;
+    font-size: 10vw;
+    font-weight: bold;
+}
+
+#waitwinner #textWinner .span-now {
+    position: absolute;
+    font-family: Maven Pro;
+    color: #fff;
+    font-size: 8vw;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+
+#draw #text .span-draw {
+    color: #f4c430;
+    text-shadow: 5px 5px #fff,5px -5px #fff, -5px -5px #fff, -5px 5px #fff;
+}
+
+#burn #text .span-burn {
+    color: #f9d100;
+    text-shadow: 5px 5px #303030,5px -5px #303030, -5px -5px #303030, -5px 5px #303030;
+}
+
+
+#waitwinner #textWinner {
+    position: absolute;
+    width: 100%;
+    margin-top: 8vh;
+}
+
+
+
+#waitwinner #winner {
+    position: absolute;
+    width: 100%;
+}
+
+#waitwinner .photo {
+    width: 20vw;
+    height: 20vw;
+    overflow: hidden;
+    border-radius: 50%;
+    border: solid 9px #fff;
+    margin-bottom: 2vw;
+}
+
+    #waitwinner .photo img {
+        width: 20vw;
+        height: 20vw;
+    }
+
+#waitwinner .block {
+    color: #fff;
+    font-family: Maven Pro;
+    width: 20vw;
+    text-align: center;
+    margin-left: calc(50% - 10vw);
+}
+
+    #waitwinner .block .name,
+    #waitwinner .block .team {
+        color: #fff;
+        font-family: Maven Pro;
+        font-size: 3vw;
+    }
+
+    #waitwinner .block .team {
+        font-size: 1.5vw;
+    }
+
+
+#waitwinner #winner .block {
+    position: absolute;
+    top: 15vh;
+    margin-top: 12vh;
 }

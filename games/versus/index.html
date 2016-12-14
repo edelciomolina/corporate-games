@@ -61,12 +61,40 @@
             <span class="span-now">Agora!</span>
         </element>
 
-    </screen>
+        <element id="textWinner">
+            <span class="span-now">Vencedor</span>
+        </element>
 
+        <element id="winner">
+            <div class="block">
+                <div class="photo">
+                    <img src="#" />
+                </div>
+                <span class="name"></span><br />
+                <span class="team"></span>
+            </div>
+        </element>
+
+    </screen>
+     
     <screen id="draw">
 
         <element id="text">
-            <span class="span-draw">Empate!</span>
+            <span class="span-draw" style="cursor: none;">
+                <img src="/assets/img/alert.png" style="cursor: none;"><br>
+                EMPATE!
+            </span>
+        </element>
+
+    </screen>
+
+    <screen id="burn">
+
+        <element id="text">
+            <span class="span-burn" style="cursor: none;">
+                <img src="/assets/img/burn.png" style="cursor: none;"><br>
+                QUEIMOU!
+            </span>
         </element>
 
     </screen>

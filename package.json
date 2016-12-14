@@ -14,7 +14,9 @@
     "frame": true,
     "resizable": true,
     "show_in_taskbar": true,
-    "show": true
+    "show": true,
+    "width": 1200,
+    "height": 800
   },
   "webkit": {
     "plugin": true,

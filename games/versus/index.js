@@ -33,7 +33,7 @@ Versus = {
         var titleElement = screen.Element('title');
 
         //stating sound effects
-        //Versus.Sound_Music.loop = true;
+        Versus.Sound_Music.loop = true;
         //Versus.Sound_Music.play();
 
         //animating elements
@@ -51,7 +51,7 @@ Versus = {
         //waiting for a key
         Game.WaitKey('enter', function () {
 
-            titleElement.animateCSS('fadeOut', function () {
+            titleElement.animateCSS('zoomOut', function () {
 
                 Versus.FrameIntro();
 
@@ -87,24 +87,137 @@ Versus = {
             player1.animateCSS('bounce', Math.floor(Math.random() * 2000) + 500);
             player2.animateCSS('bounce', Math.floor(Math.random() * 2000) + 500);
             versus.animateCSS('jello', Math.floor(Math.random() * 4000) + 3000);
-             
+
         }, 6000);
+
+        Game.WaitKey('enter', function () {
+
+            clearInterval(introAnimation);
+            Versus.FrameCounter();
+
+        })
+
 
     },
 
     FrameCounter: function () {
 
+        var screenIntro = Game.Screen('intro');
+        var player1 = screenIntro.Element('player1');
+        var player2 = screenIntro.Element('player2');
+        var versus = screenIntro.Element('versus');
+
+        versus.animateCSS('zoomOut', 500, function () {
+            versus.hide();
+        });
+
+        player2.animateCSS('bounceOutLeft', 1000, function () {
+            player2.hide();
+        });
+        player1.animateCSS('bounceOutRight', 1000, function () {
+            player1.hide();
+        });
+
+        setTimeout(function () {
+
+            var screen = Game.Screen('counter').Prepare();
+            var number = screen.Element('number');
+            var spanNumber = number.find('.span-counter-big');
+
+            number.show();
+
+
+            Versus.Sound_Ready.play();
+            spanNumber.text(3);
+            spanNumber.animateCustomCSS('rotateIn', { duration: timeOut });
+
+            var timeOut = 600;
+            setTimeout(function () {
+
+                spanNumber.text(2);
+
+                setTimeout(function () {
+
+                    spanNumber.text(1);
+
+                    setTimeout(function () {
+
+                        spanNumber.animateCustomCSS('rotateOut', {
+                            onComplete: function () {
+
+                                spanNumber.hide();
+
+                                Versus.FrameWaitWinner();
+
+                            }
+                        });
+
+                    }, timeOut);
+
+
+                }, timeOut);
+
+            }, timeOut);
+
+        }, 2000);
+
+
     },
 
     FrameWaitWinner: function () {
 
+        var screenWait = Game.Screen('waitwinner').Prepare();
+        var text = screenWait.Element('text');
+        text.animateCSS('flash');
+
     },
 
-    FrameDraw: function () {
+    ShowDraw: function () {
+
+        var screenDraw = Game.Screen('draw').Prepare();
+        var text = screenDraw.Element('text');
+        text.animateCSS('flash');
 
     },
 
+    ShowBurn: function () {
 
+        var screenDraw = Game.Screen('burn').Prepare();
+        var text = screenDraw.Element('text');
+        text.animateCSS('flash');
+
+    },
+
+    ShowWinner: function () {
+
+        var screenWait = Game.Screen('waitwinner');
+        var text = screenWait.Element('text');
+
+        var winner = screenWait.Element('winner');
+        var textWinner = screenWait.Element('textWinner');
+
+
+        text.animateCSS('zoomOut', function () {
+
+            text.hide();
+
+            var winnerData = Versus.Config.player1;
+            winner.find('.photo img').attr('src', winnerData.photo);
+            winner.find('.name').text(winnerData.name);
+            winner.find('.team').text(winnerData.team);
+
+            textWinner.animateCSS('zoomInDown', 0);
+            winner.animateCSS('zoomInUp', 300);
+
+        });
+
+    },
+
+    StartSerialRead: function () {
+
+
+
+    },
 
     NextStage: function (a, c) {
 

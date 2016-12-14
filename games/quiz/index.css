@@ -3,6 +3,7 @@
     background-repeat: repeat-y;
     background-size: cover;
     overflow: hidden;
+    height: 100vh;
 }
 
 .hidden {

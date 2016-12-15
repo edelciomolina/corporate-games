@@ -1,112 +1,112 @@
 ﻿{
   "themes": [
     {
-      "name": "Geografia",
+      "name": "História",
       "questions": [
         {
-          "message": "Setor industrial implantado por empresas norte-americanas e europeias em países da América latina.",
+          "message": "Além do Reino da Itália quais impérios faziam parte do acordo militar chamado de a Triplice Aliança?",
           "answers": [
-            "Aeroespacial",
-            "Têxtil",
-            "Automobilístico",
-            "Laticínios"
+            "Alemão e Austro-Húngaro",
+            "Austríaco e BieloRussia",
+            "Inglaterra e França",
+            "Cisjordânia e Africa do Sul"
+          ],
+          "result": 1
+        },
+        {
+          "message": "Quando nasceu Abraham Lincoln?",
+          "answers": [
+            "12 de fevereiro de 1809",
+            "22 de Março de 1811",
+            "18 de Janeiro de 1808",
+            "13 de Abril de 1810"
+          ],
+          "result": 1
+        },
+        {
+          "message": "Em qual ano teve inicio a fase histórica do Brasil Império.",
+          "answers": [
+            "1819",
+            "1832",
+            "1822",
+            "1850"
           ],
           "result": 3
         },
         {
-          "message": "Este arquipélago situado ao norte de Cuba possuí mais de 700 ilhas.",
+          "message": "Qual foi o primeiro funcionário da Netspeed a ser registrado em carteira?",
           "answers": [
-            "Havaí",
-            "Bahamas",
-            "Bermudas",
-            "Haiti"
+            "Cássia",
+            "Ederson",
+            "Cristiane",
+            "Zilda"
           ],
           "result": 2
         },
         {
-          "message": "Quinto maior país do mundo em extensão territorial.",
+          "message": "Quem foi o primeiro homem a pisar na lua?",
           "answers": [
-            "Brasil",
-            "Canadá",
-            "Estados Unidos",
-            "Rússia"
-          ],
-          "result": 1
-        },
-        {
-          "message": "Conjunto de todos os ecossistemas da Terra, na qual a vida é naturalmente encontrada.",
-          "answers": [
-            "Biosfera",
-            "Litosfera",
-            "Atmosfera",
-            "Androsfera"
-          ],
-          "result": 1
-        },
-        {
-          "message": "Menor país do mundo em extensão territorial.",
-          "answers": [
-            "Andorra",
-            "Vaticano",
-            "Suécia",
-            "Machu-Picchu"
+            "Lance Armstrong",
+            "Neil Armstrong",
+            "Louis Armstrong",
+            "Mark Armstrong"
           ],
           "result": 2
         }
       ]
     },
     {
-      "name": "Conhecimentos Gerais",
+      "name": "Musica",
       "questions": [
         {
-          "message": "Quantos tentáculos tem um polvo?",
+          "message": "Qual destes não faz parte dos Tribalistas?",
           "answers": [
-            "Quatro",
-            "Seis",
-            "Sete",
-            "Oito"
-          ],
-          "result": 4
-        },
-        {
-          "message": "Crença religiosa baseada em muitos deuses.",
-          "answers": [
-            "Paganismo",
-            "Gnosticismo",
-            "Politeísmo",
-            "Monoteísmo"
+            "Marisa Monte",
+            "Carlinhos Brown",
+            "Gilberto Gil",
+            "Arnaldo Antunes"
           ],
           "result": 3
         },
         {
-          "message": "O mesmo que setentrional.",
+          "message": "Qual era o verdadeiro nome do Jacarezinho do Grupo a Mulekada?",
           "answers": [
-            "Norte",
-            "Sul",
-            "Leste",
-            "Oeste"
+            "Kleber Ramos",
+            "Rogério Almeida",
+            "Leandro Andrade",
+            "Luciano Martins"
           ],
           "result": 1
         },
         {
-          "message": "Ano da Proclamação da República no Brasil.",
+          "message": "Qual é o 2° estilo de música mais ouvida no Brasil?",
           "answers": [
-            "1789",
-            "1822",
-            "1864",
-            "1889"
-          ],
-          "result": 4
-        },
-        {
-          "message": "Que tempo deve transcorrer entre o domingo de Carnaval e o domingo de Páscoa segundo a tradição?",
-          "answers": [
-            "42 dias",
-            "7 Semanas",
-            "4 Luas Cheias",
-            "5 Semanas"
+            "Sertanejo",
+            "MPB",
+            "Samba/Pagode",
+            "Axé"
           ],
           "result": 2
+        },
+        {
+          "message": "A letra G representa qual nota musical?",
+          "answers": [
+            "Sol",
+            "Ré",
+            "Mi",
+            "Fá"
+          ],
+          "result": 1
+        },
+        {
+          "message": "Qual a música mais tocada nos últimos 20 anos de Mamonas Assassinas?",
+          "answers": [
+            "Sábado de Sol",
+            "Vira-Vira",
+            "Robocop Gay",
+            "Pelados em Santos"
+          ],
+          "result": 4
         }
       ]
     },
@@ -114,7 +114,7 @@
       "name": "Hã?",
       "questions": [
         {
-          "message": "Quantos gomos possui uma bola de futebol profissional?",
+          "message": "Sabendo que A234C71D em hexadecimal é 2721367837 qual o valor binário de um quíntuplo da metade do dobro do valor em octal?",
           "answers": [
             "12",
             "24",
@@ -124,82 +124,82 @@
           "result": 4
         },
         {
-          "message": "Qual o modo result de se pedir um pastél em chines?",
+          "message": "O que é um petricor?",
           "answers": [
-            "我想肉餅",
-            "一個可口可樂",
-            "雞腿",
-            "多少"
+            "Cheirinho de chuva",
+            "Uma borboleta de 5 cores",
+            "Uma lúnula colorida",
+            "É só um penico"
           ],
           "result": 1
         },
         {
-          "message": "Qual destes valores representa (Pi)?",
+          "message": "Se seu eponíquio inflama, a quem você procura?",
           "answers": [
-            "3.14148154248",
-            "3.14159265359",
-            "3.14160376450",
-            "3.14171487551"
-          ],
-          "result": 2
-        },
-        {
-          "message": "Pquanptos pplapneptas pepxisptem paptupalpmenpte pno psisptepma psoplar?",
-          "answers": [
-            "Psepte",
-            "Poipto",
-            "Pnopve",
-            "Pdez"
-          ],
-          "result": 2
-        },
-        {
-          "message": "Quantos dedos tem um ornitorrinco macho austríaco?",
-          "answers": [
-            "18",
-            "20",
-            "22",
-            "24"
+            "Meu obstetra",
+            "Minha manicure",
+            "Meu psicólogo",
+            "Minha mãe"
           ],
           "result": 3
+        }, 
+        {
+          "message": "Quantos átomos formam o corpo humano?",
+          "answers": [
+            "Depende do humano!",
+            "7 octilhões de átomos",
+            "Humanos não tem átomos",
+            "Somente um"
+          ],
+          "result": 2
+        },
+        {
+          "message": "Onde habitam os Lemmings?",
+          "answers": [
+            "No bioma ártico da tundra",
+            "No mundo dos vídeogames",
+            "No meu vaso sanitário",
+            "No Yakult"
+          ],
+          "result": 1
         }
       ]
     },
     {
-      "name": "Ciências",
+      "name": "Esportes",
       "questions": [
         {
-          "message": "Qual o primeiro elemento da tabela periódica?",
+          "message": "Em quantos sets é disputado o Esporte olímpico Badiminton?",
           "answers": [
-            "Lítio",
-            "Oxigênio",
-            "Hidrogênio",
-            "Carbono"
+            "3 sets de 15 pontos",
+            "5 sets de 15 pontos",
+            "3 sets de 21 pontos",
+            "5 sets de 21 pontos"
           ],
           "result": 3
         },
         {
-          "message": "Em uma hemorragia, quais componentes vão agir para estancar o sangramento?",
+          "message": "No Buzkashi as equipes utilizam carcaça de cabra ou vaca no lugar de bola, sabendo disso, que objeto eles podem utilizar para se defenderem de seus adversários?",
           "answers": [
-            "Plasma",
-            "Glóbulos",
-            "Plaquetas",
-            "Leucócitos"
+            "Escudo",
+            "Armadura",
+            "Chicote",
+            "Panelas"
           ],
           "result": 3
         },
         {
-          "message": "Qual dos seguintes gases é tóxico?",
+          "message": "Qual destas cidades não foi candidata para ser a cidade sede dos jogos olímpicos e paralímpicos de 2016?",
           "answers": [
-            "Oxigênio",
-            "Monóxido de Carbono",
-            "Nitrogênio ",
-            "Hidrogênio"
+            "Cesar Cielo",
+            "Rodrigo Pessoa",
+            "Torben Grael",
+            "Isaquias Queiroz"
           ],
-          "result": 2
+          "result": 4
         },
         {
-          "message": "Qual é a maior articulação do corpo humano?",
+          "message": "Qual o nome do brasileiro que deu à canoagem brasileira, sua primeira medalha em Jogos Olímpicos?",
           "answers": [
             "Joelho",
             "Crânio",
@@ -209,14 +209,14 @@
           "result": 1
         },
         {
-          "message": "Quais dos elementos abaixo são eliminados pelo organismo?",
+          "message": "Qual o maior medalhista olimpico?",
           "answers": [
-            "Uréia e Gás Carbônico",
-            "Oxigênio e Hormônios",
-            "Plaquetas e Potrombina",
-            "Globóides e Mucósas"
+            "Nikolay Andrianov",
+            "Líbero Serginho",
+            "Larisa Latynina",
+            "Michael Phelps"
           ],
-          "result": 1
+          "result": 4
         }
       ]
     },
@@ -224,54 +224,54 @@
       "name": "Cultura NERD",
       "questions": [
         {
-          "message": "Qual o nome do dragão da história de 'O Hobbit'?",
+          "message": "Qual era a matéria que Dumbledore lecionava em 'Harry Potter'?",
           "answers": [
-            "Smaug",
-            "Godzilla",
-            "Smeagol",
-            "Gollum"
-          ],
-          "result": 1
-        },
-        {
-          "message": "Qual desses não é orfão?",
-          "answers": [
-            "Superman",
-            "Batman",
-            "Homem-Aranha",
-            "Arqueiro Verde"
-          ],
-          "result": 4
-        },
-        {
-          "message": "Qual o nome do planeta natal de Spock, o ser lógico da série e saga de filmes Star Trek?",
-          "answers": [
-            "Vulcano",
-            "Terra",
-            "Asgard",
-            "Orion"
-          ],
-          "result": 1
-        },
-        {
-          "message": "Em que planeta Anakin Skywalker morava quando criança?",
-          "answers": [
-            "Dagobah",
-            "Alderaan",
-            "Tatooine",
-            "Naboo"
+            "Artes das Trevas",
+            "Feitiços",
+            "Transfigurações",
+            "Poções Mágicas"
           ],
           "result": 3
         },
         {
-          "message": "Que item fundamental um nerd sempre deve levar ao sair de casa, especialmente se pretende deixar o planeta?",
+          "message": "Qual o nome da cidade em que morava o Lord Farquar?",
           "answers": [
-            "Sabre de Luz",
-            "Analgésico",
-            "Pedra Filosofal",
-            "Toalha"
+            "Tão Tão Distante",
+            "Camelot",
+            "Duloc",
+            "Arendelle"
+          ],
+          "result": 3
+        },
+        {
+          "message": "O Personagem mais poderoso no Universo Marvel?",
+          "answers": [
+            "Odin",
+            "Flash",
+            "Thanos",
+            "One-Above-All"
           ],
           "result": 4
+        },
+        {
+          "message": "Como se chamava o camundongo da Disney antes de ser chamado de Mickey Mouse?",
+          "answers": [
+            "Mortimer",
+            "Topolino",
+            "El Raton",
+            "Skipper The Rat"
+          ],
+          "result": 1
+        },
+        {
+          "message": "Quantos átomos formam o corpo humano?",
+          "answers": [
+            "Depende do humano!",
+            "7 octilhões de átomos",
+            "Humanos não tem átomos",
+            "Somente um"
+          ],
+          "result": 2
         }
       ]
     }

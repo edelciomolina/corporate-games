@@ -39,7 +39,7 @@ Versus = {
 
         //stating sound effects
         Versus.Sound_Music.loop = true;
-        //Versus.Sound_Music.play();
+        Versus.Sound_Music.play();
 
         //animating elements
         titleElement.animateCSS('bounceIn', 1000);
@@ -352,7 +352,7 @@ Versus = {
                             break;
 
                         case (read == Versus.Player2.serialkey && text.is(':visible')):
-                            Versus.Serial.stop(); 
+                            Versus.Serial.stop();
                             Versus.ShowWinner(Versus.Player2);
                             break;
 

@@ -1,24 +1,37 @@
 ﻿Game = {
 
     Config: null,
-    AnimationWaitKey: null, 
+    AnimationWaitKey: null,
+    ListenerWaitKey: null,
     Config: null,
 
     Initialize: function (args) {
 
         Game.Config = args;
 
+        Game.UpdateGameData(function (data) {
+
+            document.title = Game.Config.title;
+
+            //removendo ponteiro do mouse
+            $('*').css({ 'cursor': 'none' });
+
+            if (Game.Config.Start) Game.Config.Start(data);
+
+        });
+
+
+    },
+
+    UpdateGameData: function (callback) {
+
         $.getJSON("/data/config.json", function (config) {
+
+            Game.Config.data = config;
 
             $.getJSON(Game.Config.configPath, function (data) {
 
-                document.title = Game.Config.title;
-
-                //removendo ponteiro do mouse
-                $('*').css({ 'cursor': 'none' });
-                 
-                data.gameData = data;
-                if (Game.Config.Start) Game.Config.Start(data);
+                if (callback) callback(data);
 
             });
 
@@ -28,17 +41,25 @@
 
     WaitKey: function (key, callback) {
 
-        $('.img-waitkey:not(:visible)').fadeIn();
-        var listener = new window.keypress.Listener(); 
-        listener.simple_combo(key, function (a, c) {
+        try { Game.ListenerWaitKey.reset(); } catch (e) { }
+        Game.ListenerWaitKey = new window.keypress.Listener();
 
-            $('.img-waitkey:visible').fadeOut();
-            if (callback) callback();
+        setTimeout(function () {
 
-        });
-         
+            $('.img-waitkey:not(:visible)').fadeIn();
+            Game.ListenerWaitKey.simple_combo(key, function (a, c) {
+
+                Game.ListenerWaitKey.unregister_combo(key);
+
+                $('.img-waitkey:visible').fadeOut();
+                if (callback) callback();
+
+            });
+
+        }, 1000)
+
     },
-     
+
     Screen: function (screenName) {
 
         var objectScreen = {

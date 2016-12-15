@@ -6,8 +6,13 @@ Versus = {
     Sound_Bells: new Audio("/assets/media/bells.wav"),
     Sound_Ready: new Audio("/assets/media/ready.wav"),
     Sound_Drum: new Audio("/assets/media/drum.wav"),
+    Serial: null,
     Animation: null,
     Config: null,
+    StopCounter: null,
+    Player1: 0,
+    Player2: 1,
+    Players: null,
 
     Ready: function () {
 
@@ -53,11 +58,78 @@ Versus = {
 
             titleElement.animateCSS('zoomOut', function () {
 
+                Versus.Player1 = Versus.Config.players[0];
+                Versus.Player2 = Versus.Config.players[1];
+
                 Versus.FrameIntro();
 
             });
 
         });
+
+    },
+
+    ChangePlayers: function () {
+
+        try { Versus.KeysChangePlayers.reset(); } catch (e) { }
+        Versus.KeysChangePlayers = new window.keypress.Listener();
+
+
+        Versus.KeysChangePlayers.simple_combo('1', function () {
+            Versus.Player1 = Versus.Config.players[0];
+            Versus.SetPlayers(1);
+        });
+        Versus.KeysChangePlayers.simple_combo('2', function () {
+            Versus.Player1 = Versus.Config.players[1];
+            Versus.SetPlayers(1);
+        });
+        Versus.KeysChangePlayers.simple_combo('3', function () {
+            Versus.Player1 = Versus.Config.players[2];
+            Versus.SetPlayers(1);
+        });
+        Versus.KeysChangePlayers.simple_combo('4', function () {
+            Versus.Player1 = Versus.Config.players[3];
+            Versus.SetPlayers(1);
+        });
+
+        Versus.KeysChangePlayers.simple_combo('7', function () {
+            Versus.Player2 = Versus.Config.players[0];
+            Versus.SetPlayers(2);
+        });
+        Versus.KeysChangePlayers.simple_combo('8', function () {
+            Versus.Player2 = Versus.Config.players[1];
+            Versus.SetPlayers(2);
+        });
+        Versus.KeysChangePlayers.simple_combo('9', function () {
+            Versus.Player2 = Versus.Config.players[2];
+            Versus.SetPlayers(2);
+        });
+        Versus.KeysChangePlayers.simple_combo('0', function () {
+            Versus.Player2 = Versus.Config.players[3];
+            Versus.SetPlayers(2);
+        });
+
+
+    },
+
+    SetPlayers: function (type) {
+
+        Versus.ChangePlayers();
+
+        var screen = Game.Screen('intro');
+        var player1 = screen.Element('player1');
+        var player2 = screen.Element('player2');
+
+        if (type == 1) { player1.find('.photo').animateCSS('tada') }
+        if (type == 2) { player2.find('.photo').animateCSS('tada') }
+
+        player1.find('.photo img').attr('src', Versus.Player1.photo);
+        player1.find('.name').text(Versus.Player1.name);
+        player1.find('.team').text(Versus.Player1.team);
+
+        player2.find('.photo img').attr('src', Versus.Player2.photo);
+        player2.find('.name').text(Versus.Player2.name);
+        player2.find('.team').text(Versus.Player2.team);
 
     },
 
@@ -69,20 +141,14 @@ Versus = {
         var player2 = screen.Element('player2');
         var versus = screen.Element('versus');
 
-
-        player1.find('.photo img').attr('src', Versus.Config.player1.photo);
-        player1.find('.name').text(Versus.Config.player1.name);
-        player1.find('.team').text(Versus.Config.player1.team);
-
-        player2.find('.photo img').attr('src', Versus.Config.player2.photo);
-        player2.find('.name').text(Versus.Config.player2.name);
-        player2.find('.team').text(Versus.Config.player2.team);
+        Versus.SetPlayers();
 
         player1.animateCSS('bounceInLeft', 1000);
         player2.animateCSS('bounceInRight', 1000);
         versus.animateCSS('zoomInDown', 1500);
 
-        var introAnimation = setInterval(function () {
+        clearInterval(Versus.introAnimation)
+        Versus.introAnimation = setInterval(function () {
 
             player1.animateCSS('bounce', Math.floor(Math.random() * 2000) + 500);
             player2.animateCSS('bounce', Math.floor(Math.random() * 2000) + 500);
@@ -92,11 +158,10 @@ Versus = {
 
         Game.WaitKey('enter', function () {
 
-            clearInterval(introAnimation);
+            clearInterval(Versus.introAnimation);
             Versus.FrameCounter();
 
         })
-
 
     },
 
@@ -120,6 +185,8 @@ Versus = {
 
         setTimeout(function () {
 
+            Versus.StartSerialRead()
+
             var screen = Game.Screen('counter').Prepare();
             var number = screen.Element('number');
             var spanNumber = number.find('.span-counter-big');
@@ -127,20 +194,24 @@ Versus = {
             number.show();
 
 
-            Versus.Sound_Ready.play();
+            clearTimeout(Versus.TimeoutCounter);
+            Versus.Sound_Ready.pause();
+            Versus.Sound_Ready.currentTime = 0;
+            Versus.Sound_Ready.play()
+
             spanNumber.text(3);
             spanNumber.animateCustomCSS('rotateIn', { duration: timeOut });
 
             var timeOut = 600;
-            setTimeout(function () {
+            Versus.TimeoutCounter = setTimeout(function () {
 
                 spanNumber.text(2);
 
-                setTimeout(function () {
+                Versus.TimeoutCounter = setTimeout(function () {
 
                     spanNumber.text(1);
 
-                    setTimeout(function () {
+                    Versus.TimeoutCounter = setTimeout(function () {
 
                         spanNumber.animateCustomCSS('rotateOut', {
                             onComplete: function () {
@@ -174,21 +245,37 @@ Versus = {
 
     ShowDraw: function () {
 
+        Versus.Sound_Ready.pause();
+        Versus.Sound_Drum.play();
+
         var screenDraw = Game.Screen('draw').Prepare();
         var text = screenDraw.Element('text');
         text.animateCSS('flash');
+
+        Game.WaitKey('enter', function () {
+            Versus.FrameIntro();
+        });
 
     },
 
     ShowBurn: function () {
 
+        Versus.Sound_Ready.pause();
+        Versus.Sound_Drum.play();
+
         var screenDraw = Game.Screen('burn').Prepare();
         var text = screenDraw.Element('text');
         text.animateCSS('flash');
 
+        Game.WaitKey('enter', function () {
+            Versus.FrameIntro();
+        });
+
     },
 
-    ShowWinner: function () {
+    ShowWinner: function (winnerData) {
+
+        Versus.Sound_Bells.play();
 
         var screenWait = Game.Screen('waitwinner');
         var text = screenWait.Element('text');
@@ -201,7 +288,6 @@ Versus = {
 
             text.hide();
 
-            var winnerData = Versus.Config.player1;
             winner.find('.photo img').attr('src', winnerData.photo);
             winner.find('.name').text(winnerData.name);
             winner.find('.team').text(winnerData.team);
@@ -209,149 +295,91 @@ Versus = {
             textWinner.animateCSS('zoomInDown', 0);
             winner.animateCSS('zoomInUp', 300);
 
+            Game.WaitKey('enter', function () {
+                Versus.FrameIntro();
+            });
+
         });
 
     },
 
     StartSerialRead: function () {
 
+        var screenWait = Game.Screen('waitwinner');
+        var text = screenWait.Element('text');
 
+        //creating the serial object
+        var SerialPort = require('serial-node');
+        Versus.Serial = new SerialPort();
 
-    },
-
-    NextStage: function (a, c) {
-
-        Versus.Slide += 1;
-        Versus.Change(a, c);
-
-    },
-
-    Clean: function () {
-
-        Versus.Sound_Music.pause();
-        Versus.Sound_Counter.pause();
-        Versus.Sound_Bells.pause();
-        Versus.Sound_Ready.pause();
-
-        var elems = $('.hidden:visible');
-        elems.animateCSS('fadeOut', function () {
-
-            elems.hide();
-
+        //prevent the closing and stopping serial reading
+        var win = require('nw.gui').Window.get();
+        win.on('close', function () {
+            Versus.Serial.stop();
         });
 
-    },
+        //setting use with config arguments and callback functions
+        Versus.Serial.use(Versus.Config.serial.port, {
+            baud: Versus.Config.serial.baud,
+            callbackUse: function (args) {
 
-    Change: function () {
+                if (args.state) {
 
-        setTimeout(function () {
+                    //reading serial in looping
+                    Versus.Serial.read(true);
 
-            Versus.Cancel = false;
+                } else {
 
-            //eliminando musica de fundo se houver
-            try {
-                Versus.Sound_Music.pause();
-            } catch (e) { }
+                    alert(args.error + '\n\n' + 'Go to the Device Manager into Windows and try change or disable and enable the COM port and try again.');
+                    location.href = location.href;
 
-            //elimitando timer de animação e ocultando elementos visiveis
-            clearInterval(Versus.Animation);
+                }
 
+            },
+            callbackRead: function (args) {
 
-            //identificando proxima tela
-            switch (Versus.Slide) {
+                //my rules to accept data when the serial data was like: @6:0!
+                var read = args.value.trim() || '';
+                if (read.startsWith('@') && read.endsWith('!') && read.length == 5) {
 
-                case 0: //abertura
+                    console.log(read);
 
+                    switch (true) {
 
+                        case (read == Versus.Player1.serialkey && text.is(':visible')):
+                            Versus.Serial.stop();
+                            Versus.ShowWinner(Versus.Player1);
+                            break;
 
-                    break;
+                        case (read == Versus.Player2.serialkey && text.is(':visible')):
+                            Versus.Serial.stop(); 
+                            Versus.ShowWinner(Versus.Player2);
+                            break;
 
-                case 1: //mostrando a categoria e a pergunta
+                        case (read == '@0:0!' && text.is(':visible')):
+                            Versus.Serial.stop();
+                            clearTimeout(Versus.TimeoutCounter);
+                            Versus.ShowDraw();
+                            break;
 
-                    var elems = $('.screen .item');
-                    elems.hide();
-
-                    if (Versus.QuestionAtual == 2) {
-
-                        Versus.ShowCategoria(function () {
-
-                            Versus.ShowTimerStart(function () {
-
-                                Versus.ShowQuestion(function () {
-
-                                    Versus.NextStage();
-
-                                });
-
-                            });
-
-                        });
-
-
-                    } else {
-
-                        Versus.ShowTimerStart(function () {
-
-                            Versus.ShowQuestion(function () {
-
-                                Versus.NextStage();
-
-                            });
-
-                        });
-
+                        case (read != '@6:0!' && !text.is(':visible')):
+                            Versus.Serial.stop();
+                            clearTimeout(Versus.TimeoutCounter);
+                            Versus.ShowBurn();
+                            break;
                     }
 
-                    break;
+                    //show the useful data
+                    console.log(read);
 
-                case 2: //mostrando as escolhas
-
-                    Versus.ShowChoices(function () {
-
-                        Game.WaitKey('enter');
-
-                    });
-
-                    break;
-
-                case 3: //mostrando a resposta
-
-                    Versus.ShowAnswers(function () {
-
-                        Game.WaitKey('enter');
-
-                    });
-
-                    break;
-
-                case 4: //ocultando a resposta
-
-                    $('.span-resp-text').animateCSS('fadeOutRightBig', 1000, function (e) {
-                        $(e).hide();
-                    });
-                    $('.span-resp-title, .span-resp-title2').animateCSS('fadeOutLeftBig', 1000, function (e) {
-
-                        $(e).hide();
-
-                        Versus.Cancel = true;
-                        Versus.Slide = 1;
-                        Versus.ChangeQuestion();
-                        Versus.Change();
-
-                    });
-
-                    break;
-
-                default:
+                }
 
             }
 
-
-        }, 500);
+        });
 
 
     }
-
 
 }
 

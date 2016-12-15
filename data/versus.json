@@ -1,18 +1,32 @@
 ﻿{
-  "player1": {
-    "name": "Edelcio Molina",
-    "team": "Desenvolvimento",
-    "photo": "/data/files/1477395639_04.jpg",
-    "serialkey": "@6:0!"
-  },
-  "player2": {
-    "name": "Marcus Paulo",
-    "team": "Desenvolvimento",
-    "photo": "/data/files/574662_3450869197787_701396745_n.jpg",
-    "serialkey": "@4:0!"
-  },
+  "players": [
+    {
+      "name": "Isabela Barbosa",
+      "team": "Time Azul",
+      "photo": "/data/files/isabela.jpg",
+      "serialkey": "@4:0!"
+    },
+    {
+      "name": "Renato Rodrigues",
+      "team": "Time Vermelho",
+      "photo": "/data/files/renato.jpg",
+      "serialkey": "@2:0!"
+    },
+    {
+      "name": "Letícia Martins",
+      "team": "Time Verde",
+      "photo": "/data/files/leticia.jpg",
+      "serialkey": "@4:0!"
+    },
+    {
+      "name": "Marcus Paulo",
+      "team": "Time Preto",
+      "photo": "/data/files/574662_3450869197787_701396745_n.jpg",
+      "serialkey": "@2:0!"
+    }
+  ],
   "serial": {
-    "port": "COM3",
+    "port": "COM10",
     "baud": "2400"
   }
 }

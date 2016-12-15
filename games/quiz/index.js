@@ -31,9 +31,12 @@ Quiz = {
 
         Quiz.Questions = data.themes;
 
-        Quiz.NextStage();
-        Quiz.ChangeQuestion();
-        Game.WaitKey('enter');
+        Game.WaitKey('enter', function(){
+             
+            Quiz.NextStage();
+            Quiz.ChangeQuestion();
+
+        });
     },
 
     NextStage: function (a, c) {
@@ -294,7 +297,10 @@ Quiz = {
 
                     }, 5000);
 
-                    Game.WaitKey('enter'); 
+
+                    Game.WaitKey('enter', function () {
+                        Quiz.NextStage(); 
+                    });
 
                     break;
 
@@ -340,7 +346,9 @@ Quiz = {
 
                     Quiz.ShowChoices(function () {
 
-                        Game.WaitKey('enter');
+                        Game.WaitKey('enter', function () {
+                            Quiz.NextStage();
+                        });
 
                     });
 
@@ -350,7 +358,9 @@ Quiz = {
 
                     Quiz.ShowAnswers(function () {
 
-                        Game.WaitKey('enter');
+                        Game.WaitKey('enter', function () {
+                            Quiz.NextStage();
+                        });
 
                     });
 

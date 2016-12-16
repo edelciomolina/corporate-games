@@ -4,12 +4,13 @@
     background-size: cover;
     overflow: hidden;
     height: 100vh;
+    font-family: Maven Pro;
 }
 
 
 .img-title {
     margin-top: 15vh;
-   background: url(/assets/img/logo.png); 
+    background: url(/data/files/abertura.png);
     background-size: contain;
     background-repeat: no-repeat;
     height: 60vh;
@@ -19,15 +20,14 @@
     margin-right: auto;
 }
 
-.screen{
+.screen {
     padding: 30px;
     text-align: center;
-  
 }
-.screen a{
-    margin: 1.5vw;
-      color: #fff;
-    font-family: monospace;
-    text-decoration: none;
-  
-}
+
+    .screen a {
+        margin: 1.5vw;
+        color: #fff;
+        font-family: Maven Pro;
+        text-decoration: none;
+    }

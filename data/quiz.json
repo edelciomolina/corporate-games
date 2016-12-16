@@ -6,7 +6,7 @@
         {
           "message": "Além do Reino da Itália quais impérios faziam parte do acordo militar chamado de a Triplice Aliança?",
           "answers": [
-            "Alemão e Austro-Húngaro",
+            "Alemão, Austro-Húngaro e Itália",
             "Austríaco e BieloRussia",
             "Inglaterra e França",
             "Cisjordânia e Africa do Sul"
@@ -69,7 +69,7 @@
           "result": 3
         },
         {
-          "message": "Qual era o verdadeiro nome do Jacarezinho do Grupo a Mulekada?",
+          "message": "Qual era o verdadeiro nome do Jacarézinho do Grupo a Mulekada?",
           "answers": [
             "Kleber Ramos",
             "Rogério Almeida",
@@ -141,7 +141,7 @@
             "Meu psicólogo",
             "Minha mãe"
           ],
-          "result": 3
+          "result": 2
         }, 
         {
           "message": "Quantos átomos formam o corpo humano?",
@@ -189,7 +189,7 @@
           "result": 3
         },
         {
-          "message": "Qual destas cidades não foi candidata para ser a cidade sede dos jogos olímpicos e paralímpicos de 2016?",
+          "message": "Qual o nome do brasileiro que deu à canoagem brasileira, sua primeira medalha em Jogos Olímpicos?",
           "answers": [
             "Cesar Cielo",
             "Rodrigo Pessoa",
@@ -199,14 +199,14 @@
           "result": 4
         },
         {
-          "message": "Qual o nome do brasileiro que deu à canoagem brasileira, sua primeira medalha em Jogos Olímpicos?",
+          "message": "Qual destas cidades não foi candidata para ser a cidade sede dos jogos olímpicos de verão de 2016?",
           "answers": [
-            "Joelho",
-            "Crânio",
-            "Patela",
-            "Falanges"
+            "Durban",
+            "Berlim",
+            "França",
+            "Rio de Janeiro"
           ],
-          "result": 1
+          "result": 3
         },
         {
           "message": "Qual o maior medalhista olimpico?",
@@ -264,14 +264,14 @@
           "result": 1
         },
         {
-          "message": "Quantos átomos formam o corpo humano?",
+          "message": "Qual o verdadeiro nome de Bart do desenho The Simpsons?",
           "answers": [
-            "Depende do humano!",
-            "7 octilhões de átomos",
-            "Humanos não tem átomos",
-            "Somente um"
+            "Barto Andrew Simpson",
+            "Bart Montgomery Simpson",
+            "Bartney Abraham Simpson",
+            "Bartholomew Jay Simpson"
           ],
-          "result": 2
+          "result": 4
         }
       ]
     }

@@ -19,14 +19,14 @@
       "serialkey": "@4:0!"
     },
     {
-      "name": "Marcus Paulo",
+      "name": "Gustavo Guimarães",
       "team": "Time Preto",
-      "photo": "/data/files/574662_3450869197787_701396745_n.jpg",
+      "photo": "/data/files/gustavo.jpg",
       "serialkey": "@2:0!"
     }
   ],
   "serial": {
-    "port": "COM10",
+    "port": "COM4",
     "baud": "2400"
   }
 }

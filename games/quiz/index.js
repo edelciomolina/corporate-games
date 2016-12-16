@@ -30,13 +30,9 @@ Quiz = {
     Start: function (data) {
 
         Quiz.Questions = data.themes;
+        Quiz.NextStage();
+        Quiz.ChangeQuestion();
 
-        Game.WaitKey('enter', function(){
-             
-            Quiz.NextStage();
-            Quiz.ChangeQuestion();
-
-        });
     },
 
     NextStage: function (a, c) {
@@ -77,7 +73,7 @@ Quiz = {
             var Question = Quiz.Questions[Quiz.QuestionCateg].questions[(Quiz.QuestionAtual - 1)];
             var Resposta = Quiz.Questions[Quiz.QuestionCateg].questions[(Quiz.QuestionAtual - 1)].result;
             var RespostaL = (Resposta == 1 ? 'A' : Resposta == 2 ? 'B' : Resposta == 3 ? 'C' : 'D');
-            var RespostaM = Question.answers[Resposta];
+            var RespostaM = Question.answers[Resposta-1];
 
             $('.span-theme-big').text(Group.name);
             $('.span-theme-title').text(Group.name);
@@ -186,7 +182,7 @@ Quiz = {
         $('.img-circle').animateCSS('slideInRight');
         $('.span-counter').animateCSS('slideInRight');
 
-        $('.span-counter').text(10);
+        $('.span-counter').text(3);
         setTimeout(function () {
 
 

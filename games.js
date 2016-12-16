@@ -20,23 +20,32 @@
 
         });
 
+        Game.WaitKey('f', function () {
+
+            var win = require('nw.gui').Window.get();
+            win.enterFullscreen();
+
+        });
+
 
     },
 
     UpdateGameData: function (callback) {
 
-        $.getJSON("/data/config.json", function (config) {
+         
+            $.getJSON("/data/config.json", function (config) {
 
-            Game.Config.data = config;
+                if (!Game.Config) return;
+                Game.Config.data = config;
 
-            $.getJSON(Game.Config.configPath, function (data) {
+                $.getJSON(Game.Config.configPath, function (data) {
 
-                if (callback) callback(data);
+                    if (callback) callback(data);
+
+                });
 
             });
-
-        });
-
+         
     },
 
     WaitKey: function (key, callback) {

@@ -1,11 +1,13 @@
 ﻿
 Versus = {
 
-    Sound_Music: new Audio("/assets/media/intro.wav"),
+    Sound_Music: new Audio("/assets/media/versus-intro.wav"),
     Sound_Counter: new Audio("/assets/media/intesity.wav"),
-    Sound_Bells: new Audio("/assets/media/bells.wav"),
     Sound_Ready: new Audio("/assets/media/ready.wav"),
-    Sound_Drum: new Audio("/assets/media/drum.wav"),
+    Sound_Burn: new Audio("/assets/media/versus-burn.wav"),
+    Sound_Draw: new Audio("/assets/media/versus-draw.wav"),
+    Sound_Win: new Audio("/assets/media/versus-win.wav"),
+    Sound_Beep: new Audio("/assets/media/beep.wav"),
     Serial: null,
     Animation: null,
     Config: null,
@@ -120,8 +122,8 @@ Versus = {
         var player1 = screen.Element('player1');
         var player2 = screen.Element('player2');
 
-        if (type == 1) { player1.find('.photo').animateCSS('tada') }
-        if (type == 2) { player2.find('.photo').animateCSS('tada') }
+        if (type == 1) { player1.find('.photo').animateCSS('tada'); Versus.Sound_Beep.play(); }
+        if (type == 2) { player2.find('.photo').animateCSS('tada'); Versus.Sound_Beep.play(); }
 
         player1.find('.photo img').attr('src', Versus.Player1.photo);
         player1.find('.name').text(Versus.Player1.name);
@@ -134,6 +136,10 @@ Versus = {
     },
 
     FrameIntro: function () {
+
+        //stating sound effects 
+        Versus.Sound_Music.play();
+
 
         //preparing the frame and a element to use
         var screen = Game.Screen('intro').Prepare();
@@ -167,6 +173,8 @@ Versus = {
 
     FrameCounter: function () {
 
+        Versus.Sound_Music.pause();
+
         var screenIntro = Game.Screen('intro');
         var player1 = screenIntro.Element('player1');
         var player2 = screenIntro.Element('player2');
@@ -191,10 +199,13 @@ Versus = {
             var number = screen.Element('number');
             var spanNumber = number.find('.span-counter-big');
 
+            var screenWait = Game.Screen('waitwinner');
+            var text = screenWait.Element('text');
+
             number.show();
+            text.hide();
 
-
-            clearTimeout(Versus.TimeoutCounter);
+            
             Versus.Sound_Ready.pause();
             Versus.Sound_Ready.currentTime = 0;
             Versus.Sound_Ready.play()
@@ -203,20 +214,24 @@ Versus = {
             spanNumber.animateCustomCSS('rotateIn', { duration: timeOut });
 
             var timeOut = 600;
+            clearTimeout(Versus.TimeoutCounter);
             Versus.TimeoutCounter = setTimeout(function () {
 
                 spanNumber.text(2);
 
+                clearTimeout(Versus.TimeoutCounter);
                 Versus.TimeoutCounter = setTimeout(function () {
 
                     spanNumber.text(1);
 
+                    clearTimeout(Versus.TimeoutCounter);
                     Versus.TimeoutCounter = setTimeout(function () {
 
                         spanNumber.animateCustomCSS('rotateOut', {
                             onComplete: function () {
 
                                 spanNumber.hide();
+                                number.hide();
 
                                 Versus.FrameWaitWinner();
 
@@ -237,16 +252,29 @@ Versus = {
 
     FrameWaitWinner: function () {
 
-        var screenWait = Game.Screen('waitwinner').Prepare();
-        var text = screenWait.Element('text');
-        text.animateCSS('flash');
+        var screen = Game.Screen('counter');
+        var number = screen.Element('number');
+
+        var VerifyNumbers = setInterval(function () {
+
+            if (!number.is(':visible')) {
+
+                clearInterval(VerifyNumbers);
+
+                var screenWait = Game.Screen('waitwinner').Prepare();
+                var text = screenWait.Element('text');
+                text.animateCSS('flash');
+
+            } 
+
+        }, 100); 
 
     },
 
     ShowDraw: function () {
 
         Versus.Sound_Ready.pause();
-        Versus.Sound_Drum.play();
+        Versus.Sound_Draw.play();
 
         var screenDraw = Game.Screen('draw').Prepare();
         var text = screenDraw.Element('text');
@@ -261,7 +289,7 @@ Versus = {
     ShowBurn: function () {
 
         Versus.Sound_Ready.pause();
-        Versus.Sound_Drum.play();
+        Versus.Sound_Burn.play();
 
         var screenDraw = Game.Screen('burn').Prepare();
         var text = screenDraw.Element('text');
@@ -275,7 +303,7 @@ Versus = {
 
     ShowWinner: function (winnerData) {
 
-        Versus.Sound_Bells.play();
+        Versus.Sound_Win.play();
 
         var screenWait = Game.Screen('waitwinner');
         var text = screenWait.Element('text');

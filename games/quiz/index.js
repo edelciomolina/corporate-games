@@ -79,8 +79,8 @@ Quiz = {
             $('.span-theme-title').text(Group.name);
             $('.span-text-titleT').text(Question.message);
             $('.question-a2').text(Question.answers[0]);
-            $('.question-b2').text(Question.answers[1]);
-            $('.question-c2').text(Question.answers[2]);
+            $('.question-b2').text(Question.answers[2]);
+            $('.question-c2').text(Question.answers[1]);
             $('.question-d2').text(Question.answers[3]);
 
             $('.span-resp-text').text(RespostaL);
@@ -182,7 +182,7 @@ Quiz = {
         $('.img-circle').animateCSS('slideInRight');
         $('.span-counter').animateCSS('slideInRight');
 
-        $('.span-counter').text(3);
+        $('.span-counter').text(10);
         setTimeout(function () {
 
 
